@@ -24,6 +24,7 @@ bluez
 pamixer
 playerctl
 upower
+power-profiles-daemon
 
 # Desktop helpers
 brightnessctl
