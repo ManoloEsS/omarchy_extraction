@@ -213,8 +213,7 @@ The extraction installs these requested applications from the AUR:
 - `elephant-symbols`
 - `elephant-unicode`
 - `elephant-websearch`
-- `zig0.15-bin`, the prebuilt Zig toolchain used to build `herdr`
-- `herdr`
+- `herdr-bin`, the prebuilt Herdr binary
 - `brave-origin-bin`, the AUR package providing Brave Origin
 
 The installer uses `yay` or `paru`. Install one before running the extraction.
@@ -228,8 +227,7 @@ makepkg -si
 ```
 
 Review AUR `PKGBUILD` files before building them. The extraction installer also
-accepts an explicit helper. `zig0.15-bin` provides Herdr's `zig0.15` build
-dependency without compiling Zig from source:
+accepts an explicit helper:
 
 ```bash
 AUR_HELPER=paru ./install.sh --packages
@@ -264,7 +262,8 @@ user services:
 
 This installs the official packages from `packages.txt` with `pacman`, then all
 entries in `aur-packages.txt` through the selected AUR helper. The AUR list
-contains Walker, Elephant, its configured providers, `herdr`, and Brave Origin.
+contains Walker, Elephant, its configured providers, `herdr-bin`, and Brave
+Origin.
 `neovim` is already in the official package manifest, along with `tmux`,
 `tailscale`, and `ghostty`. Ghostty is the only terminal supported by the
 extraction's launcher scripts.

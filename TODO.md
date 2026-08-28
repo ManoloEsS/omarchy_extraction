@@ -8,7 +8,7 @@ in `pre_script_setup.md` and user-level desktop changes in this repository.
 - [ ] Complete the system preparation in `pre_script_setup.md`.
 - [ ] Run `./install.sh --packages --no-services` on the target system.
 - [ ] Confirm the official packages install with `pacman`.
-- [ ] Confirm Walker, Elephant, and the configured providers build through `yay` or `paru`.
+- [ ] Confirm Walker, Elephant, and the configured providers build through `yay` or `paru`, and `herdr-bin` installs as a binary package.
 - [ ] Enable Ly and verify the Hyprland session appears at login.
 - [ ] Run `./install.sh` and verify the user services start.
 - [ ] Test the launcher, terminal, notifications, audio, Bluetooth, Wi-Fi, screenshots, lock screen, and idle behavior.

@@ -48,7 +48,7 @@ AUR_HELPER=paru ./install.sh --packages
 ```
 
 Skip AUR packages with `./install.sh --packages --skip-aur`. Walker, Elephant,
-the configured Elephant providers, `herdr`, and Brave Origin are listed in
+the configured Elephant providers, `herdr-bin`, and Brave Origin are listed in
 `aur-packages.txt` and are installed through the selected AUR helper.
 
 Services are enabled by default. Skip that step with:
@@ -117,5 +117,5 @@ See `packages.txt` and `aur-packages.txt`. The launcher requires Walker,
 Elephant, and the provider packages for application search, files, calculator,
 symbols, and clipboard.
 Audio, Bluetooth, and Wi-Fi panel bindings use Wiremix, Bluetui, and Impala.
-`herdr` and Brave Origin are installed from the AUR as requested. Herdr's
-`zig0.15` build dependency is satisfied by the prebuilt `zig0.15-bin` package.
+`herdr-bin` and Brave Origin are installed from the AUR as requested. Herdr is
+installed as a prebuilt binary, so it does not compile Zig from source.
