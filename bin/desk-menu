@@ -3,6 +3,7 @@
 system_menu() {
   printf '%s\n' \
     "Launch applications" \
+    "Keybindings" \
     "Lock" \
     "Toggle Waybar" \
     "Toggle idle lock" \
@@ -51,6 +52,7 @@ fi
 
 case $choice in
   "Launch applications") desk-launch-walker ;;
+  "Keybindings") desk-launch-keybindings ;;
   "Lock") desk-lock ;;
   "Toggle Waybar") desk-toggle-waybar ;;
   "Toggle idle lock") desk-toggle-idle ;;

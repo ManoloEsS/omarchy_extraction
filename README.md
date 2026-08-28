@@ -77,6 +77,7 @@ project does not configure SDDM, Plymouth, boot loaders, kernels, or `/etc`.
 - `Super+Shift+Space` toggles Waybar.
 - `Super+Ctrl+I` toggles idle locking.
 - `Super+Alt+Space` opens the small system menu.
+- The system menu includes a live keybindings list.
 - `Super+Ctrl+L` locks the session.
 - Print Screen starts the screenshot flow.
 - Multimedia keys control audio and display brightness with SwayOSD.

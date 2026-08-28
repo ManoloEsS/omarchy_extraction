@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -euo pipefail
+
+modifiers() {
+  local mask="$1"
+  local result=()
+  local modifier
+
+  (( mask & 64 )) && result+=(SUPER)
+  (( mask & 8 )) && result+=(ALT)
+  (( mask & 4 )) && result+=(CTRL)
+  (( mask & 1 )) && result+=(SHIFT)
+
+  for modifier in "${result[@]}"; do
+    printf '%s + ' "$modifier"
+  done
+}
+
+keybindings() {
+  local mask
+  local key
+  local description
+  local combo
+
+  while IFS=$'\t' read -r mask key description; do
+    [[ -n $description ]] || continue
+
+    case $key in
+      mouse:272) key="LEFT MOUSE BUTTON" ;;
+      mouse:273) key="RIGHT MOUSE BUTTON" ;;
+      mouse:274) key="MIDDLE MOUSE BUTTON" ;;
+    esac
+
+    combo="$(modifiers "$mask")$key"
+    printf '%-40s -> %s\n' "$combo" "$description"
+  done < <(
+    hyprctl -i 0 binds -j |
+      jq -r '
+        .[]
+        | select(.description != null and .description != "")
+        | [
+            (.modmask // 0),
+            (if (.key // "") != "" then .key else (if .mouse then "mouse:" else "code:" end) + ((.keycode // 0) | tostring) end),
+            .description
+          ]
+        | @tsv
+      ' |
+      sort -u
+  )
+}
+
+if [[ ${1:-} == "--print" ]]; then
+  keybindings
+else
+  keybindings | desk-launch-walker --dmenu --width 800 --minheight 1 --maxheight 600 -p "Keybindings"
+fi
