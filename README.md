@@ -17,6 +17,9 @@ This uses SwayOSD and SwayBG; it does not configure the Sway compositor.
 
 The configs are intentionally static. There is no dynamic theme state and no
 dependency on `~/.local/share/omarchy` or `~/.config/omarchy`.
+Hyprland 0.55+ uses the native Lua configuration at
+`~/.config/hypr/hyprland.lua`; the extraction does not use the deprecated
+hyprlang configuration format.
 
 ## Install
 
@@ -40,8 +43,10 @@ To install the listed packages first:
 ./install.sh --packages
 ```
 
-`--packages` installs `packages.txt` with `pacman`, then installs
-`aur-packages.txt` with `yay` or `paru`. You can select a helper explicitly:
+`--packages` links the user configuration and commands first, then installs
+`packages.txt` with `pacman` and `aur-packages.txt` with `yay` or `paru`. A
+package failure does not prevent the configuration from being installed. You
+can select an AUR helper explicitly:
 
 ```bash
 AUR_HELPER=paru ./install.sh --packages
@@ -71,12 +76,12 @@ project does not configure SDDM, Plymouth, boot loaders, kernels, or `/etc`.
 - `Super+Shift+N` opens the configured editor.
 - `Super+Shift+Space` toggles Waybar.
 - `Super+Ctrl+I` toggles idle locking.
-- `Super+Ctrl+O` opens the small system menu.
+- `Super+Alt+Space` opens the small system menu.
 - `Super+Ctrl+L` locks the session.
 - Print Screen starts the screenshot flow.
 - Multimedia keys control audio and display brightness with SwayOSD.
 
-The Hyprland bindings are split into files under `config/hypr/bindings/` so
+The Hyprland Lua bindings are split into files under `config/hypr/bindings/` so
 application-specific bindings can be changed without touching the compositor
 defaults.
 

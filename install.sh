@@ -93,12 +93,22 @@ link_file() {
   ln -s -- "$source" "$destination"
 }
 
+remove_legacy_link() {
+  local relative_path="$1"
+  local source="$REPO_DIR/$relative_path"
+  local destination="$CONFIG_DIR/${relative_path#config/}"
+
+  if [[ -L $destination ]] && [[ $(readlink -- "$destination") == "$source" ]]; then
+    backup_destination "$destination"
+  fi
+}
+
 install_config() {
   local relative_path
   local source
   local destination
 
-  config_files=(
+  legacy_config_files=(
     config/hypr/hyprland.conf
     config/hypr/autostart.conf
     config/hypr/envs.conf
@@ -107,16 +117,38 @@ install_config() {
     config/hypr/monitors.conf
     config/hypr/windows.conf
     config/hypr/apps.conf
-    config/hypr/hypridle.conf
-    config/hypr/hyprlock.conf
-    config/hypr/hyprsunset.conf
-    config/hypr/xdph.conf
     config/hypr/bindings.conf
     config/hypr/bindings/apps.conf
     config/hypr/bindings/clipboard.conf
     config/hypr/bindings/media.conf
     config/hypr/bindings/tiling.conf
     config/hypr/bindings/utilities.conf
+  )
+
+  for relative_path in "${legacy_config_files[@]}"; do
+    remove_legacy_link "$relative_path"
+  done
+
+  config_files=(
+    config/hypr/hyprland.lua
+    config/hypr/helpers.lua
+    config/hypr/autostart.lua
+    config/hypr/envs.lua
+    config/hypr/input.lua
+    config/hypr/looknfeel.lua
+    config/hypr/monitors.lua
+    config/hypr/windows.lua
+    config/hypr/apps.lua
+    config/hypr/hypridle.conf
+    config/hypr/hyprlock.conf
+    config/hypr/hyprsunset.conf
+    config/hypr/xdph.conf
+    config/hypr/bindings.lua
+    config/hypr/bindings/apps.lua
+    config/hypr/bindings/clipboard.lua
+    config/hypr/bindings/media.lua
+    config/hypr/bindings/tiling.lua
+    config/hypr/bindings/utilities.lua
     config/environment.d/desktop-extraction.conf
     config/ghostty/config
     config/waybar/config.jsonc
@@ -184,12 +216,12 @@ install_services() {
   fi
 }
 
+install_config
+install_commands
+
 if [[ $INSTALL_PACKAGES == true ]]; then
   install_packages
 fi
-
-install_config
-install_commands
 
 if [[ $INSTALL_SERVICES == true ]]; then
   install_services

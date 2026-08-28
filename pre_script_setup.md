@@ -266,7 +266,9 @@ contains Walker, Elephant, its configured providers, `herdr-bin`, and Brave
 Origin.
 `neovim` is already in the official package manifest, along with `tmux`,
 `tailscale`, and `ghostty`. Ghostty is the only terminal supported by the
-extraction's launcher scripts.
+extraction's launcher scripts. The installer links the Hyprland Lua
+configuration and user commands before the package step, so a package failure
+does not leave Hyprland using its default configuration.
 
 After confirming the packages and hardware work, enable the extraction's user
 services:
