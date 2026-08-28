@@ -117,4 +117,5 @@ See `packages.txt` and `aur-packages.txt`. The launcher requires Walker,
 Elephant, and the provider packages for application search, files, calculator,
 symbols, and clipboard.
 Audio, Bluetooth, and Wi-Fi panel bindings use Wiremix, Bluetui, and Impala.
-`herdr` and Brave Origin are installed from the AUR as requested.
+`herdr` and Brave Origin are installed from the AUR as requested. Herdr's
+`zig0.15` build dependency is satisfied by the prebuilt `zig0.15-bin` package.

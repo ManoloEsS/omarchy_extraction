@@ -213,6 +213,7 @@ The extraction installs these requested applications from the AUR:
 - `elephant-symbols`
 - `elephant-unicode`
 - `elephant-websearch`
+- `zig0.15-bin`, the prebuilt Zig toolchain used to build `herdr`
 - `herdr`
 - `brave-origin-bin`, the AUR package providing Brave Origin
 
@@ -227,7 +228,8 @@ makepkg -si
 ```
 
 Review AUR `PKGBUILD` files before building them. The extraction installer also
-accepts an explicit helper:
+accepts an explicit helper. `zig0.15-bin` provides Herdr's `zig0.15` build
+dependency without compiling Zig from source:
 
 ```bash
 AUR_HELPER=paru ./install.sh --packages

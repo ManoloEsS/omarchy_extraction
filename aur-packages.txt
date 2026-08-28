@@ -12,6 +12,9 @@ elephant-symbols
 elephant-unicode
 elephant-websearch
 
+# Prebuilt build dependency for Herdr
+zig0.15-bin
+
 # Requested applications
 herdr
 brave-origin-bin
