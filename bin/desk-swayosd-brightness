@@ -1,0 +1,10 @@
+#!/bin/bash
+
+percent=${1:-0}
+progress=$(awk -v value="$percent" 'BEGIN { printf "%.2f", value / 100 }')
+[[ $progress == "0.00" ]] && progress=0.01
+
+exec desk-swayosd-client \
+  --custom-icon display-brightness-symbolic \
+  --custom-progress "$progress" \
+  --custom-progress-text "${percent}%"

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Start the provider and UI services on demand as well as through systemd.
+if ! pgrep -x elephant >/dev/null 2>&1; then
+  if command -v systemctl >/dev/null 2>&1; then
+    systemctl --user start desktop-elephant.service >/dev/null 2>&1 || true
+  fi
+
+  if ! pgrep -x elephant >/dev/null 2>&1 && command -v elephant >/dev/null 2>&1; then
+    setsid elephant >/dev/null 2>&1 &
+  fi
+fi
+
+if ! pgrep -f 'walker --gapplication-service' >/dev/null 2>&1; then
+  if command -v systemctl >/dev/null 2>&1; then
+    systemctl --user start desktop-walker.service >/dev/null 2>&1 || true
+  fi
+
+  if ! pgrep -f 'walker --gapplication-service' >/dev/null 2>&1 && command -v walker >/dev/null 2>&1; then
+    setsid env GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
+  fi
+fi
+
+exec walker --width 644 --maxheight 300 --minheight 300 "$@"

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if (( $# == 0 )); then
+  printf 'Usage: %s <command> [args...]\n' "$0" >&2
+  exit 1
+fi
+
+command_name=$(basename -- "$1")
+app_id="org.desktop.$command_name"
+
+if command -v xdg-terminal-exec >/dev/null 2>&1; then
+  exec setsid xdg-terminal-exec --app-id="$app_id" -e "$@"
+fi
+
+terminal="${DESKTOP_TERMINAL:-${TERMINAL:-alacritty}}"
+terminal_name=$(basename -- "$terminal")
+
+case $terminal_name in
+  alacritty)
+    exec setsid "$terminal" --class "$app_id" -e "$@"
+    ;;
+  foot)
+    exec setsid "$terminal" --app-id="$app_id" "$@"
+    ;;
+  kitty)
+    exec setsid "$terminal" --class "$app_id" "$@"
+    ;;
+  ghostty)
+    exec setsid "$terminal" --class="$app_id" -e "$@"
+    ;;
+  *)
+    exec setsid "$terminal" -e "$@"
+    ;;
+esac

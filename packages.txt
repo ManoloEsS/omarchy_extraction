@@ -1,0 +1,62 @@
+# Core compositor and session
+hyprland
+waybar
+mako
+hypridle
+hyprlock
+hyprsunset
+swaybg
+swayosd
+
+# Walker and Elephant launcher stack
+walker
+elephant
+elephant-calc
+elephant-clipboard
+elephant-desktopapplications
+elephant-files
+elephant-providerlist
+elephant-runner
+elephant-symbols
+elephant-unicode
+elephant-websearch
+libqalculate
+
+# Audio, wireless, and terminal panels
+pipewire
+pipewire-pulse
+wireplumber
+libpulse
+wiremix
+bluetui
+impala
+iwd
+bluez
+pamixer
+playerctl
+upower
+
+# Desktop helpers
+brightnessctl
+libnotify
+xdg-terminal-exec
+xdg-utils
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+ttf-jetbrains-mono-nerd
+
+# Clipboard and capture
+jq
+wl-clipboard
+grim
+slurp
+hyprpicker
+
+# Applications used by the default bindings
+alacritty
+btop
+ghostty
+nautilus
+neovim
+tmux
+tailscale

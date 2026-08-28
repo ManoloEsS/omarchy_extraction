@@ -1,0 +1,13 @@
+[Unit]
+Description=Elephant launcher provider service
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/elephant
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

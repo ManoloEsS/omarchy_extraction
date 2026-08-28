@@ -1,0 +1,30 @@
+#!/bin/bash
+
+output_dir="${DESKTOP_SCREENSHOT_DIR:-${XDG_PICTURES_DIR:-$HOME/Pictures}}"
+mkdir -p -- "$output_dir"
+
+mode=${1:-region}
+file="$output_dir/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
+
+case $mode in
+  fullscreen)
+    grim "$file" || exit 1
+    ;;
+  copy)
+    geometry=$(slurp) || exit 0
+    grim -g "$geometry" - | wl-copy
+    exit 0
+    ;;
+  region)
+    geometry=$(slurp) || exit 0
+    grim -g "$geometry" "$file" || exit 1
+    ;;
+  *)
+    printf 'Usage: %s [region|fullscreen|copy]\n' "$0" >&2
+    exit 1
+    ;;
+esac
+
+wl-copy <"$file"
+notify-send "Screenshot saved" "$file"
+printf '%s\n' "$file"

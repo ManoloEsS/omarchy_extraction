@@ -1,0 +1,40 @@
+#!/bin/bash
+
+private=false
+if [[ ${1:-} == "--private" ]]; then
+  private=true
+  shift
+fi
+
+if (( $# == 0 )); then
+  set -- "about:blank"
+fi
+
+if [[ $private == false ]]; then
+  if [[ -n ${DESKTOP_BROWSER:-} ]]; then
+    exec setsid "$DESKTOP_BROWSER" "$@"
+  else
+    exec setsid xdg-open "$@"
+  fi
+fi
+
+browser="${DESKTOP_BROWSER:-firefox}"
+browser_name=$(basename -- "$browser")
+
+case $browser_name in
+  firefox)
+    exec setsid "$browser" --private-window "$@"
+    ;;
+  chromium|chromium-browser|google-chrome)
+    exec setsid "$browser" --incognito "$@"
+    ;;
+  brave|brave-browser)
+    exec setsid "$browser" --incognito "$@"
+    ;;
+  microsoft-edge|microsoft-edge-stable)
+    exec setsid "$browser" --inprivate "$@"
+    ;;
+  *)
+    exec setsid "$browser" "$@"
+    ;;
+esac

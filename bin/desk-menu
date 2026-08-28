@@ -1,0 +1,40 @@
+#!/bin/bash
+
+system_menu() {
+  printf '%s\n' \
+    "Launch applications" \
+    "Lock" \
+    "Toggle Waybar" \
+    "Toggle idle lock" \
+    "Toggle notifications" \
+    "Toggle nightlight" \
+    "Suspend" \
+    "Log out" \
+    "Reboot" \
+    "Power off" |
+    desk-launch-walker --dmenu --width 320 --minheight 1 --maxheight 450 -p "System" 2>/dev/null
+}
+
+power_menu() {
+  printf '%s\n' "Lock" "Suspend" "Reboot" "Power off" |
+    desk-launch-walker --dmenu --width 320 --minheight 1 --maxheight 250 -p "Power" 2>/dev/null
+}
+
+if [[ ${1:-} == "power" ]]; then
+  choice=$(power_menu)
+else
+  choice=$(system_menu)
+fi
+
+case $choice in
+  "Launch applications") desk-launch-walker ;;
+  "Lock") desk-lock ;;
+  "Toggle Waybar") desk-toggle-waybar ;;
+  "Toggle idle lock") desk-toggle-idle ;;
+  "Toggle notifications") desk-toggle-notifications ;;
+  "Toggle nightlight") desk-toggle-nightlight ;;
+  "Suspend") systemctl suspend ;;
+  "Log out") hyprctl dispatch exit ;;
+  "Reboot") systemctl reboot ;;
+  "Power off") systemctl poweroff ;;
+esac

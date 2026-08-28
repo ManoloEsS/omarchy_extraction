@@ -1,0 +1,13 @@
+#!/bin/bash
+
+active_workspace=$(hyprctl activeworkspace -j | jq -r '.id')
+current_layout=$(hyprctl activeworkspace -j | jq -r '.tiledLayout')
+
+if [[ $current_layout == "dwindle" ]]; then
+  new_layout=scrolling
+else
+  new_layout=dwindle
+fi
+
+hyprctl keyword workspace "$active_workspace, layout:$new_layout"
+notify-send -u low "Workspace layout: $new_layout"

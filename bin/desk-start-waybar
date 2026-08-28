@@ -1,0 +1,8 @@
+#!/bin/bash
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/desktop-extraction"
+flag="$state_dir/waybar-off"
+
+if [[ ! -f $flag ]]; then
+  exec waybar
+fi

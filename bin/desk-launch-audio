@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec desk-launch-or-focus-tui wiremix

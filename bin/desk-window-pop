@@ -1,0 +1,31 @@
+#!/bin/bash
+
+width=${1:-1300}
+height=${2:-900}
+x=${3:-}
+y=${4:-}
+
+active=$(hyprctl activewindow -j)
+pinned=$(jq -r '.pinned' <<< "$active")
+address=$(jq -r '.address' <<< "$active")
+
+if [[ $pinned == "true" ]]; then
+  hyprctl -q --batch \
+    "dispatch pin address:$address;" \
+    "dispatch togglefloating address:$address;" \
+    "dispatch tagwindow -pop address:$address;"
+elif [[ -n $address && $address != "null" ]]; then
+  hyprctl dispatch togglefloating address:"$address"
+  hyprctl dispatch resizeactive exact "$width" "$height" address:"$address"
+
+  if [[ -n $x && -n $y ]]; then
+    hyprctl dispatch moveactive "$x" "$y" address:"$address"
+  else
+    hyprctl dispatch centerwindow address:"$address"
+  fi
+
+  hyprctl -q --batch \
+    "dispatch pin address:$address;" \
+    "dispatch alterzorder top address:$address;" \
+    "dispatch tagwindow +pop address:$address;"
+fi

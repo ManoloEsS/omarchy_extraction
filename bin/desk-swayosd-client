@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if command -v systemctl >/dev/null 2>&1 && ! systemctl --user is-active desktop-swayosd.service >/dev/null 2>&1; then
+  systemctl --user start desktop-swayosd.service >/dev/null 2>&1 || true
+fi
+
+monitor=$(hyprctl monitors -j 2>/dev/null | jq -r 'first(.[] | select(.focused == true) | .name) // empty')
+
+if [[ -n $monitor ]]; then
+  exec swayosd-client --monitor "$monitor" "$@"
+else
+  exec swayosd-client "$@"
+fi

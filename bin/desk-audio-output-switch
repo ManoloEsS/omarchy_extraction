@@ -1,0 +1,42 @@
+#!/bin/bash
+
+sinks=$(pactl -f json list sinks | jq -c '[.[] | select((.ports // [] | length == 0) or ([.ports[]? | .availability != "not available"] | any))]')
+sinks_count=$(jq 'length' <<< "$sinks")
+
+if (( sinks_count == 0 )); then
+  desk-swayosd-client --custom-message "No audio devices found"
+  exit 1
+fi
+
+current_sink=$(pactl get-default-sink)
+current_index=$(jq -r --arg name "$current_sink" 'map(.name) | index($name)' <<< "$sinks")
+
+if [[ $current_index == "null" ]]; then
+  next_index=0
+else
+  next_index=$(( (current_index + 1) % sinks_count ))
+fi
+
+next_sink=$(jq -c ".[$next_index]" <<< "$sinks")
+next_name=$(jq -r '.name' <<< "$next_sink")
+description=$(jq -r '.description // .name' <<< "$next_sink")
+volume=$(jq -r '.volume | to_entries[0].value.value_percent | sub("%"; "") | tonumber' <<< "$next_sink")
+muted=$(jq -r '.mute' <<< "$next_sink")
+
+if [[ $muted == "true" ]] || (( volume == 0 )); then
+  icon_state=muted
+elif (( volume <= 33 )); then
+  icon_state=low
+elif (( volume <= 66 )); then
+  icon_state=medium
+else
+  icon_state=high
+fi
+
+if [[ $next_name != "$current_sink" ]]; then
+  pactl set-default-sink "$next_name"
+fi
+
+desk-swayosd-client \
+  --custom-message "$description" \
+  --custom-icon "sink-volume-${icon_state}-symbolic"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if (( $# == 0 )); then
+  printf 'Usage: %s <command> [args...]\n' "$0" >&2
+  exit 1
+fi
+
+command_name=$(basename -- "$1")
+app_id="org.desktop.$command_name"
+window_pattern="^${app_id//./\.}$"
+
+exec desk-launch-or-focus "$window_pattern" -- desk-launch-tui "$@"

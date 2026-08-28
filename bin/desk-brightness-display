@@ -1,0 +1,28 @@
+#!/bin/bash
+
+step=${1:-+5%}
+device=""
+
+for candidate in /sys/class/backlight/*; do
+  if [[ -e $candidate ]]; then
+    device=$(basename -- "$candidate")
+    break
+  fi
+done
+
+if [[ $step == "off" ]]; then
+  hyprctl dispatch dpms off
+  exit 0
+elif [[ $step == "on" ]]; then
+  hyprctl dispatch dpms on
+  exit 0
+fi
+
+if [[ -z $device ]]; then
+  notify-send -u critical "No display brightness device found"
+  exit 1
+fi
+
+brightnessctl -d "$device" set "$step" >/dev/null
+percent=$(brightnessctl -d "$device" -m | cut -d',' -f4 | tr -d '%')
+desk-swayosd-brightness "$percent"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle >/dev/null
+
+if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q '\[MUTED\]'; then
+  message="Microphone muted"
+  icon=microphone-sensitivity-muted-symbolic
+else
+  message="Microphone on"
+  icon=audio-input-microphone-symbolic
+fi
+
+desk-swayosd-client --custom-message "$message" --custom-icon "$icon"

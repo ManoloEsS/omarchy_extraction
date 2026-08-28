@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if command -v systemctl >/dev/null 2>&1 && systemctl --user is-enabled desktop-elephant.service >/dev/null 2>&1; then
+  if ! systemctl --user restart desktop-elephant.service >/dev/null 2>&1; then
+    pkill -x elephant >/dev/null 2>&1 || true
+    command -v elephant >/dev/null 2>&1 && setsid elephant >/dev/null 2>&1 &
+  fi
+else
+  pkill -x elephant >/dev/null 2>&1 || true
+  command -v elephant >/dev/null 2>&1 && setsid elephant >/dev/null 2>&1 &
+fi
+
+if command -v systemctl >/dev/null 2>&1 && systemctl --user is-enabled desktop-walker.service >/dev/null 2>&1; then
+  if ! systemctl --user restart desktop-walker.service >/dev/null 2>&1; then
+    pkill -f 'walker --gapplication-service' >/dev/null 2>&1 || true
+    command -v walker >/dev/null 2>&1 && setsid env GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
+  fi
+else
+  pkill -f 'walker --gapplication-service' >/dev/null 2>&1 || true
+  command -v walker >/dev/null 2>&1 && setsid env GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
+fi

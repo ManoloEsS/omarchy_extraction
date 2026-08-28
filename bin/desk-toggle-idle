@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if pgrep -x hypridle >/dev/null 2>&1; then
+  pkill -x hypridle
+  notify-send -u low "Idle locking disabled"
+else
+  setsid hypridle >/dev/null 2>&1 &
+  notify-send -u low "Idle locking enabled"
+fi
+
+pkill -RTMIN+9 waybar >/dev/null 2>&1 || true

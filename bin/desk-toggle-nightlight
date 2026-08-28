@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if ! pgrep -x hyprsunset >/dev/null 2>&1; then
+  setsid hyprsunset >/dev/null 2>&1 &
+  sleep 1
+fi
+
+current_temperature=$(hyprctl hyprsunset temperature 2>/dev/null | grep -oE '[0-9]+' || true)
+
+if [[ $current_temperature == "4000" ]]; then
+  hyprctl hyprsunset temperature 6000
+  notify-send -u low "Nightlight disabled"
+else
+  hyprctl hyprsunset temperature 4000
+  notify-send -u low "Nightlight enabled"
+fi

@@ -1,0 +1,3 @@
+# Packages installed through an AUR helper such as yay or paru
+herdr
+brave-origin-bin

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/desktop-extraction"
+flag="$state_dir/waybar-off"
+
+if pgrep -x waybar >/dev/null 2>&1; then
+  pkill -x waybar
+  mkdir -p -- "$state_dir"
+  touch -- "$flag"
+else
+  rm -f -- "$flag"
+  setsid waybar >/dev/null 2>&1 &
+fi
