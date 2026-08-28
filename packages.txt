@@ -43,6 +43,7 @@ hyprpicker
 # Applications used by the default bindings
 btop
 ghostty
+mise
 nautilus
 neovim
 tmux

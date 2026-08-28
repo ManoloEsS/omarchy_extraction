@@ -22,6 +22,8 @@ dependency on `~/.local/share/omarchy` or `~/.config/omarchy`.
 
 Read [pre_script_setup.md](pre_script_setup.md) for the system-level Arch
 preparation steps before running the installer.
+See [TODO.md](TODO.md) for the next testing, customization, and stabilization
+phases.
 
 Without `--packages`, the installer only changes files below the current
 user's home directory. It backs up an existing destination before replacing it
