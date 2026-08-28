@@ -8,9 +8,9 @@ modifiers() {
   local modifier
 
   (( mask & 64 )) && result+=(SUPER)
-  (( mask & 8 )) && result+=(ALT)
-  (( mask & 4 )) && result+=(CTRL)
   (( mask & 1 )) && result+=(SHIFT)
+  (( mask & 4 )) && result+=(CTRL)
+  (( mask & 8 )) && result+=(ALT)
 
   for modifier in "${result[@]}"; do
     printf '%s + ' "$modifier"
