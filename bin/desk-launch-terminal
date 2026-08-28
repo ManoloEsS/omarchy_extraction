@@ -2,15 +2,4 @@
 
 cwd=$(desk-terminal-cwd)
 
-if ! command -v ghostty >/dev/null 2>&1; then
-  printf 'Terminal not found: ghostty\n' >&2
-  exit 1
-fi
-
-for device in /sys/class/drm/card*/device/device; do
-  if [[ -r $device ]] && [[ $(<"$device") == "0x0166" ]]; then
-    exec setsid env LIBGL_ALWAYS_SOFTWARE=1 ghostty --working-directory="$cwd"
-  fi
-done
-
-exec setsid ghostty --working-directory="$cwd"
+exec setsid desk-ghostty --working-directory="$cwd"

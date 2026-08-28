@@ -8,9 +8,4 @@ fi
 command_name=$(basename -- "$1")
 app_id="org.desktop.$command_name"
 
-if ! command -v ghostty >/dev/null 2>&1; then
-  printf 'Terminal not found: ghostty\n' >&2
-  exit 1
-fi
-
-exec setsid ghostty --class="$app_id" -e "$@"
+exec setsid desk-ghostty --class="$app_id" -e "$@"
