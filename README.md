@@ -45,10 +45,9 @@ To install the listed packages first:
 AUR_HELPER=paru ./install.sh --packages
 ```
 
-Skip AUR packages with `./install.sh --packages --skip-aur`. Package names for
-Walker and Elephant can vary by repository. If `pacman` cannot find one of
-them, install the equivalent standalone packages from the repository or AUR
-you use, then run `./install.sh` without `--packages`.
+Skip AUR packages with `./install.sh --packages --skip-aur`. Walker, Elephant,
+the configured Elephant providers, `herdr`, and Brave Origin are listed in
+`aur-packages.txt` and are installed through the selected AUR helper.
 
 Services are enabled by default. Skip that step with:
 

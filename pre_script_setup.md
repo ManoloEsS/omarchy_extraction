@@ -202,6 +202,17 @@ References:
 
 The extraction installs these requested applications from the AUR:
 
+- `walker`
+- `elephant`
+- `elephant-calc`
+- `elephant-clipboard`
+- `elephant-desktopapplications`
+- `elephant-files`
+- `elephant-providerlist`
+- `elephant-runner`
+- `elephant-symbols`
+- `elephant-unicode`
+- `elephant-websearch`
 - `herdr`
 - `brave-origin-bin`, the AUR package providing Brave Origin
 
@@ -249,11 +260,12 @@ user services:
 ./install.sh --packages --no-services
 ```
 
-This installs the official packages from `packages.txt` with `pacman`, then
-`herdr` and `brave-origin-bin` from `aur-packages.txt` through the selected AUR
-helper. `neovim` is already in the official package manifest, along with
-`tmux`, `tailscale`, and `ghostty`. Ghostty is the only terminal supported by
-the extraction's launcher scripts.
+This installs the official packages from `packages.txt` with `pacman`, then all
+entries in `aur-packages.txt` through the selected AUR helper. The AUR list
+contains Walker, Elephant, its configured providers, `herdr`, and Brave Origin.
+`neovim` is already in the official package manifest, along with `tmux`,
+`tailscale`, and `ghostty`. Ghostty is the only terminal supported by the
+extraction's launcher scripts.
 
 After confirming the packages and hardware work, enable the extraction's user
 services:

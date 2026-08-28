@@ -8,18 +8,7 @@ hyprsunset
 swaybg
 swayosd
 
-# Walker and Elephant launcher stack
-walker
-elephant
-elephant-calc
-elephant-clipboard
-elephant-desktopapplications
-elephant-files
-elephant-providerlist
-elephant-runner
-elephant-symbols
-elephant-unicode
-elephant-websearch
+# Official dependency for the Elephant calculator provider
 libqalculate
 
 # Audio, wireless, and terminal panels
