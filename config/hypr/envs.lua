@@ -1,5 +1,14 @@
 -- Wayland application defaults.
 
+local home = os.getenv("HOME") or ""
+local user_bin = home .. "/.local/bin"
+local path = os.getenv("PATH") or ""
+
+if home ~= "" and not string.find(path, user_bin, 1, true) then
+  path = user_bin .. ":" .. path
+  hl.env("PATH", path)
+end
+
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GDK_BACKEND", "wayland,x11,*")
