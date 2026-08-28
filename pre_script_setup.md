@@ -222,7 +222,24 @@ accepts an explicit helper:
 AUR_HELPER=paru ./install.sh --packages
 ```
 
-## 7. Bootstrap Order
+## 7. Login Manager (Ly)
+
+The extraction does not install or configure a display manager. If you want the
+text-based Ly login screen, install it as a system package and enable it on one
+TTY. Replace `tty2` if you choose another TTY:
+
+```bash
+sudo pacman -S ly
+sudo systemctl enable ly@tty2.service
+sudo systemctl disable getty@tty2.service
+```
+
+Enable only one login manager. Ly will offer the installed Wayland sessions,
+including Hyprland after the Hyprland package is installed. See the
+[ArchWiki Ly guide](https://wiki.archlinux.org/title/Ly) for configuration and
+TTY-specific details.
+
+## 8. Bootstrap Order
 
 Complete the system-level steps above first. Then, from the extraction
 repository and as the normal user, install the desktop packages while deferring
@@ -235,7 +252,8 @@ user services:
 This installs the official packages from `packages.txt` with `pacman`, then
 `herdr` and `brave-origin-bin` from `aur-packages.txt` through the selected AUR
 helper. `neovim` is already in the official package manifest, along with
-`tmux`, `tailscale`, and `ghostty`.
+`tmux`, `tailscale`, and `ghostty`. Ghostty is the only terminal supported by
+the extraction's launcher scripts.
 
 After confirming the packages and hardware work, enable the extraction's user
 services:

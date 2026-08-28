@@ -2,27 +2,9 @@
 
 cwd=$(desk-terminal-cwd)
 
-if command -v xdg-terminal-exec >/dev/null 2>&1; then
-  exec setsid xdg-terminal-exec --dir="$cwd"
+if ! command -v ghostty >/dev/null 2>&1; then
+  printf 'Terminal not found: ghostty\n' >&2
+  exit 1
 fi
 
-terminal="${DESKTOP_TERMINAL:-${TERMINAL:-alacritty}}"
-terminal_name=$(basename -- "$terminal")
-
-case $terminal_name in
-  alacritty)
-    exec setsid "$terminal" --working-directory "$cwd"
-    ;;
-  foot)
-    exec setsid "$terminal" --working-directory="$cwd"
-    ;;
-  kitty)
-    exec setsid "$terminal" --directory "$cwd"
-    ;;
-  ghostty)
-    exec setsid "$terminal" --working-directory="$cwd"
-    ;;
-  *)
-    exec setsid "$terminal"
-    ;;
-esac
+exec setsid ghostty --working-directory="$cwd"

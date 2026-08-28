@@ -39,7 +39,6 @@ upower
 # Desktop helpers
 brightnessctl
 libnotify
-xdg-terminal-exec
 xdg-utils
 xdg-desktop-portal-hyprland
 xdg-desktop-portal-gtk
@@ -53,7 +52,6 @@ slurp
 hyprpicker
 
 # Applications used by the default bindings
-alacritty
 btop
 ghostty
 nautilus

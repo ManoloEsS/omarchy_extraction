@@ -8,27 +8,9 @@ fi
 command_name=$(basename -- "$1")
 app_id="org.desktop.$command_name"
 
-if command -v xdg-terminal-exec >/dev/null 2>&1; then
-  exec setsid xdg-terminal-exec --app-id="$app_id" -e "$@"
+if ! command -v ghostty >/dev/null 2>&1; then
+  printf 'Terminal not found: ghostty\n' >&2
+  exit 1
 fi
 
-terminal="${DESKTOP_TERMINAL:-${TERMINAL:-alacritty}}"
-terminal_name=$(basename -- "$terminal")
-
-case $terminal_name in
-  alacritty)
-    exec setsid "$terminal" --class "$app_id" -e "$@"
-    ;;
-  foot)
-    exec setsid "$terminal" --app-id="$app_id" "$@"
-    ;;
-  kitty)
-    exec setsid "$terminal" --class "$app_id" "$@"
-    ;;
-  ghostty)
-    exec setsid "$terminal" --class="$app_id" -e "$@"
-    ;;
-  *)
-    exec setsid "$terminal" -e "$@"
-    ;;
-esac
+exec setsid ghostty --class="$app_id" -e "$@"

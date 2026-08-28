@@ -85,13 +85,13 @@ Set these in the environment before launching Hyprland, or edit the launcher
 scripts:
 
 ```bash
-export DESKTOP_TERMINAL=alacritty
 export DESKTOP_EDITOR=nvim
 export DESKTOP_BROWSER=firefox
 ```
 
-`xdg-terminal-exec` is preferred when it is installed. Otherwise the launcher
-has direct support for Alacritty, Foot, Kitty, and Ghostty.
+Ghostty is the terminal used by the launcher scripts and is configured with the
+static Tokyo Night palette. The extraction does not include alternate terminal
+configurations.
 
 The installer adds `~/.local/bin` through
 `~/.config/environment.d/desktop-extraction.conf`; log out and back in after

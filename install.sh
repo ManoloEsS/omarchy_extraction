@@ -118,6 +118,7 @@ install_config() {
     config/hypr/bindings/tiling.conf
     config/hypr/bindings/utilities.conf
     config/environment.d/desktop-extraction.conf
+    config/ghostty/config
     config/waybar/config.jsonc
     config/waybar/style.css
     config/walker/config.toml
