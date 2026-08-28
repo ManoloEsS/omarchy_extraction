@@ -21,4 +21,4 @@ if ! pgrep -f 'walker --gapplication-service' >/dev/null 2>&1; then
   fi
 fi
 
-exec walker --width 644 --maxheight 300 --minheight 300 "$@"
+exec env GSK_RENDERER=cairo walker --width 644 --maxheight 300 --minheight 300 "$@"
